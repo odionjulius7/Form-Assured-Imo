@@ -1,19 +1,31 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import MultiStepForm from "./components/MultiStepForm";
+import Home from "./components/Home";
+import Step1 from "./components/Step1";
+import MotorInsurance from "./components/MotorInsurance";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import "./App.css";
 
 function App() {
   return (
-    <div>
-      {/* <Header /> */}
+    // <<<<<<< HEAD
+    //     <div>
+    //       {/* <Header /> */}
 
-      <MultiStepForm />
+    //       <MultiStepForm />
 
-      {/* <Footer /> */}
-    </div>
+    //       {/* <Footer /> */}
+    //     </div>
+    // =======
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="Step1" element={<Step1 />} />
+        <Route exact path="motorinsurance" element={<MotorInsurance />} />
+      </Routes>
+    </BrowserRouter>
+
+    // >>>>>>> 916f2d0f173dd9366257b6318397addb78bd8f05
   );
 }
 
