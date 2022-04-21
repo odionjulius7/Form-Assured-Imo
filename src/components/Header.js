@@ -1,20 +1,31 @@
 import React from "react";
 import { Form, Button, Col, Container, Navbar } from "react-bootstrap";
 import Logo from "../img/favicon.png";
+import CertResult from "../img/linkageCertResult.png";
 
-export default function Header() {
+export default function Header({ step }) {
   return (
-    <div className="mb-3">
-      <div className="d-flex ">
-        <img src={Logo} alt="logo" className="logo-img" />
-      </div>
-      <Navbar expand="lg" variant="light" bg="light">
-        <div className="nav-container">
-          <div className="nav-content">
-            MOTOR VEHICLE INSURANCE PROPOSAL FORM
+    <div className="">
+      {step === 4 ? (
+        <div className="container">
+          <div className="d-flex ">
+            <img src={CertResult} alt="logo" className="logo-img2" />
           </div>
         </div>
-      </Navbar>
+      ) : (
+        <>
+          <div className="d-flex ">
+            <img src={Logo} alt="logo" className="logo-img" />
+          </div>
+          <Navbar expand="lg" variant="light" bg="light">
+            <div className="nav-container">
+              <div className="nav-content">
+                MOTOR VEHICLE INSURANCE PROPOSAL FORM
+              </div>
+            </div>
+          </Navbar>
+        </>
+      )}
     </div>
   );
 }

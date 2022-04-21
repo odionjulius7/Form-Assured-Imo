@@ -8,11 +8,11 @@ import "./App.css";
 function App() {
   return (
     <div>
-      <Header />
-      <div id="body-div">
-        <MultiStepForm />
-      </div>
-      <Footer />
+      {/* <Header /> */}
+
+      <MultiStepForm />
+
+      {/* <Footer /> */}
     </div>
   );
 }

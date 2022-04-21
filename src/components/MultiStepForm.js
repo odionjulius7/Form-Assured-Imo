@@ -336,6 +336,7 @@ class MultiStepForm extends Component {
     } = this.state;
     // console.log(errors.fullNameLength);
     const inputValues = {
+      step,
       fullName,
       email,
       residentialAddress,

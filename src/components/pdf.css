@@ -1,0 +1,57 @@
+#downloadable {
+  letter-spacing: 0.3px;
+  /* width: 80%; */
+}
+
+.pdf-h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  /* margin-top: -0.4rem; */
+}
+
+.pdf-h1 {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.pdf-span {
+  font-weight: 900;
+  padding-right: 2.5rem;
+  padding-bottom: 1rem;
+}
+
+.pdf-h6 {
+  font-family: Arial;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pdf-h6 span {
+  font-weight: 700;
+}
+
+.pdf-h4 {
+  font-size: 1.09rem;
+  font-weight: 800;
+}
+
+.pdf-p {
+  /* color: black;*/
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.pdf-p .no-span {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.space-p {
+  margin-left: 2.5rem;
+}
+
+.pdf-h3 {
+  font-size: 1.52rem;
+  font-weight: 800;
+}
