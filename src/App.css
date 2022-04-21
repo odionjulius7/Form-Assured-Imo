@@ -1,5 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Oswald:wght@700&display=swap');
+
+h1, h2, h3, h4 {
+  font-family: 'Oswald', sans-serif;
+  /* font-family: 'Anton', sans-serif; */
+}
+body {
+  background-image: url('../public/images/bg.jpg');
+  background-size: cover;
+  font-family: 'Nunito', sans-serif;
+}
+
+.btn-primary {
+    font-weight: 600;
+    background: #efd215;
+    text-transform: uppercase;
+    color: #000;
+    outline: none;
+    border: none;
+    box-shadow: 1px 2px 2px rgb(0 0 0 / 20%);
+    text-shadow: 1px 1px 1px rgb(255 255 255 / 40%);
+    background: linear-gradient(to bottom, #efd215, #c5ad12);
+    
+}
+
+.btn-lg {
+  padding: 10px 30px 12px;
+  font-size: 16px;
+}
+
+.content-wrapper {
+  background: rgba(255, 255, 255, 70%);
+  border-radius: 10px;
+  margin: 50px 0 100px 0;
+  padding: 50px 150px;
+}
+.header {
+  text-align: center;
+}
+.header-logo {
+  height: 150px;
+}
+.header-title {
+  font-size: 35px;
+  line-height: 1.5;
+}
+
 #body-div {
   min-height: 60vh;
+}
+
+.section-header {
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
 }
 /* NAV BAr */
 .bg-light {
