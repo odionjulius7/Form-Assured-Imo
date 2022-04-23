@@ -1,38 +1,20 @@
 import React from "react";
 import UserDetails from "./UserDetails";
 import AddressDetails from "./AddressDetails";
-import Confirmation from "./Confirmation";
+// import Confirmation from "./Confirmation";
 import InsuredForm from "./InsuredForm";
 
 import "./style.css";
 
 import Logo from "../img/anambra-logo.png";
 
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-
 import { useGlobalContext } from "../InsuranceContext";
 import RadioSection from "./RadioSection";
 import Signature from "./Signature";
+// import Payment from "./Payment";
 
 export default function MultiStepForm() {
   const { step } = useGlobalContext();
-
-  const downloadPdfFile = () => {
-    const input = document.getElementById("start");
-    html2canvas(input, {
-      logging: true,
-      letterRendering: 1,
-      useCORS: true,
-    }).then((canvas) => {
-      const imgWidth = 208;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      const imgData = canvas.toDataURL("img/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-      pdf.save(`linkageInsurance.pdf`);
-    });
-  };
 
   const displayForm = () => {
     switch (step) {
@@ -46,8 +28,6 @@ export default function MultiStepForm() {
         return <InsuredForm />;
       case 5:
         return <Signature />;
-      case 6:
-        return <Confirmation />;
       default:
     }
   };
@@ -65,7 +45,7 @@ export default function MultiStepForm() {
                     src={Logo}
                     alt=""
                     className={`img-fluid ${
-                      step === 5 || step === 6 ? "mt-5 pt-5 mb-4" : ""
+                      step === 5 ? "mt-5 pt-5 mb-4" : ""
                     }`}
                   />
                 </figure>
@@ -81,12 +61,8 @@ export default function MultiStepForm() {
                     the following declaration very carefully and read again the
                     questions and answers especially if not completed in your
                     own hand, before signing the form.
-                  </p>
-                ) : step === 6 ? (
-                  <button onClick={downloadPdfFile} className="mt-5">
-                    Download Result
-                  </button>
-                ) : (
+                  </p> // </button>
+                ) : step === 6 ? null : (
                   <>
                     <p style={{ marginBottom: "10px" }} className="text-left">
                       In completing the Proposal Form, please ensure that all
@@ -176,8 +152,8 @@ export default function MultiStepForm() {
             id="start"
           >
             <div
-              // id={`${step === 6 ? "#wizard_container-2" : "wizard_container"}`}
               id="wizard_container"
+              // id="wizard_container"
             >
               <div id="top-wizard">
                 {step === 6 ? null : (

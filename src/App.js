@@ -5,6 +5,8 @@ import MotorInsurance from "./components/MotorInsurance";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import "./App.css";
+import Payment from "./components/Payment";
+import Confirmation from "./components/Confirmation";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           path="/Step1/motorinsurance"
           element={<MotorInsurance />}
         />
+        <Route exact path="/payment" element={<Payment />} />
+        <Route exact path="/confirm" element={<Confirmation />} />
       </Routes>
     </BrowserRouter>
 

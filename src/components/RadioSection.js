@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import { Form, Button, Col, Container, Table } from "react-bootstrap";
 import { useGlobalContext } from "../InsuranceContext";
 
@@ -9,11 +9,50 @@ export default function RadioSection() {
     ifHirePurchasedStateNameOfFinancedCompany,
   } = data;
 
-  const fireNextStep = () => {
-    nextStep();
+  const [errors, setError] = useState({});
+
+  const validateForm = () => {
+    const {
+      cover_type,
+      private_use,
+      commercial_use,
+      soleOwnerOfVehicle,
+      notSoleOwnerOfVehiStateParticular,
+      isVehicleHirePurchased,
+      ifHirePurchasedStateNameOfFinancedCompany,
+    } = data;
+
+    let errors = {};
+    let formIsValid = true;
+
+    if (!cover_type) {
+      formIsValid = false;
+      errors["cover_type"] = "*Please enter field.";
+    }
+
+    if (!private_use) {
+      formIsValid = false;
+      errors["private_use"] = "*Please enter field.";
+    }
+
+    if (!commercial_use) {
+      formIsValid = false;
+      errors["commercial_use"] = "*Please enter field.";
+    }
+    setError(errors);
+    return formIsValid;
   };
 
-  const backToPrevStep = () => {
+  const fireNextStep = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      nextStep();
+    }
+    return;
+  };
+
+  const backToPrevStep = (e) => {
+    e.preventDefault();
     prevStep();
   };
 
@@ -46,6 +85,7 @@ export default function RadioSection() {
                   <label>
                     Indicate cover required - tick ( * ) appropriate box
                   </label>
+                  <div className="errorMsg">{errors["cover_type"]}</div>
                   <div className="col-md-8">
                     <div className="form-group radio_input">
                       <label className="container_radio mr-3">
@@ -100,7 +140,7 @@ export default function RadioSection() {
                     purposes or travelling to and from your place of business
                     (but not used during the course of your business).
                   </label>
-
+                  <div className="errorMsg">{errors["private_use"]}</div>
                   <div className="col-md-8">
                     <div className="form-group radio_input">
                       <label className="container_radio">
@@ -141,7 +181,7 @@ export default function RadioSection() {
                     business or employment for commercial travelling or the
                     carriage of goods and samples (i.e. for business purposes).
                   </label>
-
+                  <div className="errorMsg">{errors["commercial_use"]}</div>
                   <div className="">
                     <div className="form-group radio_input">
                       <label className="container_radio">

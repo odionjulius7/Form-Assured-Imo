@@ -59,8 +59,8 @@ const InsuranceContextProvider = (props) => {
     setStep((prev) => prev + 1);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const forward = () => {
+    // event.preventDefault();
     console.log("submit form");
     nextStep();
   };
@@ -90,7 +90,7 @@ const InsuranceContextProvider = (props) => {
         prevStep,
         handleChange,
         handleFileChange,
-        handleSubmit,
+        forward,
       }}
     >
       {props.children}

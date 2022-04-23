@@ -1,4 +1,6 @@
-import React from "react";
+// import { isOpacityEffect } from "html2canvas/dist/types/render/effects";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 // import { Form, Button, Col, Container, Table } from "react-bootstrap";
 import { useGlobalContext } from "../InsuranceContext";
 
@@ -8,23 +10,53 @@ export default function Signature() {
     data,
     nextStep,
     prevStep,
-    handlChange,
+    handleChange,
     handleFileChange,
-    handleSubmit,
+    forward,
   } = useGlobalContext();
   const { proposersName, date, scanSignature } = data;
 
-  const fireNextStep = () => {
-    nextStep();
+  const [errors, setError] = useState({});
+
+  const validateForm = () => {
+    const { proposersName, scanSignature, date } = data;
+    let errors = {};
+    let formIsValid = true;
+
+    if (!proposersName) {
+      formIsValid = false;
+      errors["proposersName"] = "*Please enter field.";
+    }
+
+    if (!scanSignature) {
+      formIsValid = false;
+      errors["scanSignature"] = "*Please enter field.";
+    }
+    if (!date) {
+      formIsValid = false;
+      errors["date"] = "*Please enter field.";
+    }
+
+    setError(errors);
+    return formIsValid;
   };
 
-  const backToPrevStep = () => {
+  const fireSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      forward();
+    }
+    return;
+  };
+
+  const backToPrevStep = (e) => {
+    e.preventDefault();
     prevStep();
   };
-
   // proposersName: "",
   // scanSignature: "",
   // date:
+  console.log(errors);
 
   return (
     <>
@@ -63,6 +95,7 @@ export default function Signature() {
             <div className="row">
               <div className="col-md-8">
                 <div className="form-group">
+                  <label className="form-group-label">Proposer's name</label>
                   <input
                     type="text"
                     name="proposersName"
@@ -70,8 +103,9 @@ export default function Signature() {
                     className="form-control"
                     placeholder="Name of proposer"
                     defaultValue={proposersName}
-                    onChange={handlChange}
+                    onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["proposersName"]}</div>
                 </div>
               </div>
             </div>
@@ -81,7 +115,9 @@ export default function Signature() {
             <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
-                  <label>Proposer’s Signature:</label>
+                  <label className="form-group-label">
+                    Proposer’s Signature:
+                  </label>
                   <div className="fileupload add_bottom_20">
                     <input
                       type="file"
@@ -92,12 +128,13 @@ export default function Signature() {
                         handleFileChange(event.target.files[0] || null)
                       }
                     />
+                    <div className="errorMsg">{errors["scanSignature"]}</div>
                   </div>
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="form-group">
-                  <label>&nbsp;</label>
+                  <label className="form-group-label">Date;</label>
                   <input
                     type="text"
                     name="date"
@@ -105,8 +142,9 @@ export default function Signature() {
                     className="form-control"
                     placeholder="Date"
                     defaultValue={date}
-                    onChange={handlChange}
+                    onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["date"]}</div>
                 </div>
               </div>
             </div>
@@ -116,25 +154,16 @@ export default function Signature() {
           <button name="backward" className="backward" onClick={backToPrevStep}>
             Prev
           </button>
-          {step === 5 ? (
+          <Link to="/payment">
             <button
               type="submit"
               name="forward"
               className="forward"
-              onClick={handleSubmit}
+              // onClick={fireSubmit}
             >
-              Submit form
+              Submit
             </button>
-          ) : (
-            <button
-              type="submit"
-              name="forward"
-              className="forward"
-              onClick={fireNextStep}
-            >
-              Next
-            </button>
-          )}
+          </Link>
         </div>
       </form>
       {/* <img

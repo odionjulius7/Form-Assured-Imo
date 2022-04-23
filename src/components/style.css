@@ -1922,3 +1922,9 @@ body[dir="rtl"] .fl-form .fl-wrap-select:after {
   right: unset;
   left: 6px;
 }
+
+.errorMsg {
+  color: #cc0000;
+  margin-bottom: 0.6rem;
+  margin-top: -0.4rem;
+}

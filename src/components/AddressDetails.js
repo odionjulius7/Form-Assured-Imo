@@ -1,12 +1,73 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 // import { Form, Button, Col, Container, Table } from "react-bootstrap";
 import { useGlobalContext } from "../InsuranceContext";
 
 export default function AddressDetails() {
   const { data, nextStep, prevStep, handleChange } = useGlobalContext();
 
-  const fireNextStep = () => {
-    nextStep();
+  const [errors, setError] = useState({});
+
+  const validateForm = () => {
+    const {
+      registeration_no,
+      engine_no,
+      chassis_no,
+      make,
+      model,
+      type_of_body,
+      year_manufacture,
+      seat_capacity,
+      datae_purchase,
+      proposes_sum,
+    } = data;
+
+    let errors = {};
+    let formIsValid = true;
+
+    if (!proposes_sum) {
+      formIsValid = false;
+      errors["proposes_sum"] = "*Please enter field.";
+    }
+
+    if (!datae_purchase) {
+      formIsValid = false;
+      errors["datae_purchase"] = "*Please enter field.";
+    }
+
+    if (!registeration_no) {
+      formIsValid = false;
+      errors["registeration_no"] = "*Please enter field.";
+    }
+
+    if (!engine_no) {
+      formIsValid = false;
+      errors["engine_no"] = "*Please enter field.";
+    }
+
+    if (!make) {
+      formIsValid = false;
+      errors["make"] = "*Please enter field.";
+    }
+
+    if (!model) {
+      formIsValid = false;
+      errors["model"] = "*Please enter field.";
+    }
+    if (!year_manufacture) {
+      formIsValid = false;
+      errors["year_manufacture"] = "*Please enter field.";
+    }
+
+    setError(errors);
+    return formIsValid;
+  };
+
+  const fireNextStep = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      nextStep();
+    }
+    return;
   };
 
   const backToPrevStep = (e) => {
@@ -28,7 +89,7 @@ export default function AddressDetails() {
 
   return (
     <>
-      <form id="wrapped" method="post" action="step-3.html">
+      <form id="wrapped">
         <input id="website" name="website" type="text" value="" />
         {/* <!-- Leave for security protection, read docs for details --> */}
         <div id="middle-wizard">
@@ -41,6 +102,7 @@ export default function AddressDetails() {
             <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">Registration No:</label>
                   <input
                     type="text"
                     name="registeration_no"
@@ -50,10 +112,12 @@ export default function AddressDetails() {
                     defaultValue={data.registeration_no}
                     onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["registeration_no"]}</div>
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">Engine No:</label>
                   <input
                     type="text"
                     name="engine_no"
@@ -63,10 +127,12 @@ export default function AddressDetails() {
                     defaultValue={data.engine_no}
                     onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["engine_no"]}</div>
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">Chassis No:</label>
                   <input
                     type="text"
                     name="chassis_no"
@@ -84,6 +150,7 @@ export default function AddressDetails() {
               <div className="col-md-6">
                 {/* <label>Do you have any allergies?</label> */}
                 <div className="form-group">
+                  <label className="form-group-label">Make</label>
                   <input
                     type="text"
                     name="make"
@@ -93,6 +160,7 @@ export default function AddressDetails() {
                     defaultValue={data.make}
                     onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["make"]}</div>
                 </div>
               </div>
             </div>
@@ -100,6 +168,7 @@ export default function AddressDetails() {
             <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">Model</label>
                   <input
                     type="text"
                     name="model"
@@ -109,11 +178,13 @@ export default function AddressDetails() {
                     defaultValue={data.model}
                     onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["model"]}</div>
                 </div>
               </div>
 
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">Type Of Body</label>
                   <input
                     type="text"
                     name="type_of_body"
@@ -130,6 +201,9 @@ export default function AddressDetails() {
               <div className="col-md-6">
                 {/* <label>Name of Sponsor</label> */}
                 <div className="form-group">
+                  <label className="form-group-label">
+                    Year of Manufacture
+                  </label>
                   <input
                     type="text"
                     name="year_manufacture"
@@ -139,11 +213,13 @@ export default function AddressDetails() {
                     defaultValue={data.year_manufacture}
                     onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["year_manufacture"]}</div>
                 </div>
               </div>
               <div className="col-md-6">
                 {/* <label>Address of Sponsor</label> */}
                 <div className="form-group">
+                  <label className="form-group-label">Seating Capacity</label>
                   <input
                     type="text"
                     name="seat_capacity"
@@ -158,6 +234,7 @@ export default function AddressDetails() {
               <div className="col-md-6">
                 {/* <label>Address of Sponsor</label> */}
                 <div className="form-group">
+                  <label className="form-group-label">Date Of Purchase</label>
                   <input
                     type="text"
                     name="datae_purchase"
@@ -167,11 +244,13 @@ export default function AddressDetails() {
                     defaultValue={data.datae_purchase}
                     onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["datae_purchase"]}</div>
                 </div>
               </div>
               <div className="col-md-6">
                 {/* <label>Address of Sponsor</label> */}
                 <div className="form-group">
+                  <label className="form-group-label">Proposed Sum</label>
                   <input
                     type="text"
                     name="proposes_sum"
@@ -181,6 +260,7 @@ export default function AddressDetails() {
                     defaultValue={data.proposes_sum}
                     onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["proposes_sum"]}</div>
                 </div>
               </div>
             </div>

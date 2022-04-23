@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import { Form, Button, Col, Container, Table } from "react-bootstrap";
 import { useGlobalContext } from "../InsuranceContext";
 
@@ -10,11 +10,39 @@ export default function InsuredForm() {
     ifAlterdAndUndertakeCartageGiveDetails,
   } = data;
 
-  const fireNextStep = () => {
-    nextStep();
+  const [errors, setError] = useState({});
+
+  const validateForm = () => {
+    const { has_the_vehicle_been_altered, isTheVehicleUsedForPublicService } =
+      data;
+
+    let errors = {};
+    let formIsValid = true;
+
+    if (!has_the_vehicle_been_altered) {
+      formIsValid = false;
+      errors["has_the_vehicle_been_altered"] = "*Please enter field.";
+    }
+
+    if (!isTheVehicleUsedForPublicService) {
+      formIsValid = false;
+      errors["isTheVehicleUsedForPublicService"] = "*Please enter field.";
+    }
+
+    setError(errors);
+    return formIsValid;
   };
 
-  const backToPrevStep = () => {
+  const fireNextStep = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      nextStep();
+    }
+    return;
+  };
+
+  const backToPrevStep = (e) => {
+    e.preventDefault();
     prevStep();
   };
 
@@ -30,8 +58,6 @@ export default function InsuredForm() {
     <>
       <form
         id="wrapped"
-        method="post"
-        action="step-2.html"
         // enctype="multipart/form-data"
       >
         <input id="website" name="website" type="text" value="" />
@@ -48,6 +74,9 @@ export default function InsuredForm() {
                 <div className="form-group float-radio">
                   <div className="col-md-8">
                     <div className="form-group">
+                      <label className="form-group-label">
+                        (a) what is the general nature
+                      </label>
                       <input
                         type="text"
                         name="general_nature_of_goods_carried"
@@ -66,7 +95,9 @@ export default function InsuredForm() {
             <div className="row">
               <div className="col-md-12">
                 <div className="form-group float-radio">
-                  <label>(b) Do you undertake cartage for other persons?</label>
+                  <label className="form-group-label">
+                    (b) Do you undertake cartage for other persons?
+                  </label>
                   <div className="col-md-8">
                     <div className="form-group radio_input">
                       <label className="container_radio">
@@ -100,11 +131,14 @@ export default function InsuredForm() {
             <div className="row">
               <div className="col-md-12">
                 <div className="form-group float-radio">
-                  <label>
+                  <label className="form-group-label">
                     (c) Has the Vehicle been altered or adapted to carry a load
                     heavier than that stated in the Maker's published
                     specification.
                   </label>
+                  <div className="errorMsg">
+                    {errors["has_the_vehicle_been_altered"]}
+                  </div>
                   <div className="col-md-8">
                     <div className="form-group radio_input">
                       <label className="container_radio mr-3">
@@ -137,6 +171,9 @@ export default function InsuredForm() {
             <div className="row">
               <div className="col-md-8">
                 <div className="form-group">
+                  <label className="form-group-label">
+                    If answer to b) or c) is 'Yes', please give details{" "}
+                  </label>
                   <input
                     type="text"
                     name="ifAlterdAndUndertakeCartageGiveDetails"
@@ -156,7 +193,7 @@ export default function InsuredForm() {
             <div className="row">
               <div className="col-md-12">
                 <div className="form-group float-radio">
-                  <label>
+                  <label className="form-group-label">
                     (a) Are the Passengers carried for hire or reward{" "}
                   </label>
                   <div className="col-md-8">
@@ -192,7 +229,12 @@ export default function InsuredForm() {
             <div className="row">
               <div className="col-md-12">
                 <div className="form-group float-radio">
-                  <label>(b) Is the Vehicle used for public service</label>
+                  <label className="form-group-label">
+                    (b) Is the Vehicle used for public service
+                  </label>
+                  <div className="errorMsg">
+                    {errors["isTheVehicleUsedForPublicService"]}
+                  </div>
                   <div className="col-md-8">
                     <div className="form-group radio_input">
                       <label className="container_radio">
@@ -226,6 +268,9 @@ export default function InsuredForm() {
             <div className="row">
               <div className="col-md-8">
                 <div className="form-group">
+                  <label className="form-group-label">
+                    State Class Vehicle Licence
+                  </label>
                   <input
                     type="text"
                     name="State_class_of_vehicle_licence"

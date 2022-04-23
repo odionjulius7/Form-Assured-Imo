@@ -1,22 +1,100 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useGlobalContext } from "../InsuranceContext";
 
 export default function UserDetails() {
-  const { data, nextStep, handleChange } = useGlobalContext();
+  const { data, nextStep, handleChange, setData } = useGlobalContext();
+  const [errors, setError] = useState({});
 
-  const fireNextStep = () => {
-    nextStep();
+  const validateForm = () => {
+    const {
+      full_name,
+      residential_address,
+      occupation,
+      date_of_birth,
+      business_address,
+      date_of_incorp,
+      RC_no,
+      telephone_no,
+      email,
+      website,
+    } = data;
+    let errors = {};
+    let formIsValid = true;
+
+    const regex =
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+    if (!full_name || !full_name.match(/^[a-zA-Z ]*$/)) {
+      formIsValid = false;
+      errors["full_name"] = "*Please enter your full name.";
+    }
+
+    if (!email && !regex.test(email)) {
+      formIsValid = false;
+      errors["email"] = "*Please enter your email.";
+    }
+
+    if (!telephone_no && !telephone_no.match(/^[0-9]{10}$/)) {
+      formIsValid = false;
+      errors["telephone_no"] = "*Please enter your phone number.";
+    }
+
+    if (!occupation) {
+      formIsValid = false;
+      errors["occupation"] = "*Please enter your field.";
+    }
+
+    // if (!residential_address) {
+    //   formIsValid = false;
+    //   errors["residential_address"] = "*Please enter your username.";
+    // }
+
+    // if (!website) {
+    //   formIsValid = false;
+    //   errors["website"] = "*Please enter your username.";
+    // }
+
+    // if (!date_of_birth) {
+    //   formIsValid = false;
+    //   errors["date_of_birth"] = "*Please enter your date of birth.";
+    // }
+
+    // if (!business_address) {
+    //   formIsValid = false;
+    //   errors["business_address"] = "*Please enter your business address.";
+    // }
+
+    // if (!date_of_incorp) {
+    //   formIsValid = false;
+    //   errors["date_of_incorp"] = "*Please enter your field.";
+    // }
+    // if (!RC_no) {
+    //   formIsValid = false;
+    //   errors["RC_no"] = "*Please enter your field.";
+    // }
+    // if (!fields["password"]) {
+    //   formIsValid = false;
+    //   errors["password"] = "*Please enter your password.";
+    // }
+
+    setError(errors);
+    return formIsValid;
+  };
+
+  console.log(errors);
+
+  const fireNextStep = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      nextStep();
+    }
+    return;
   };
 
   return (
     <>
-      <form
-        id="wrapped"
-        method="post"
-        action="step-4.html"
-        // enctype="multipart/form-data"
-      >
+      <form id="wrapped">
         <input id="website" name="website" type="text" value="" />
         <div id="middle-wizard">
           <div className="step">
@@ -25,6 +103,7 @@ export default function UserDetails() {
             <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">Full Name</label>
                   <input
                     type="text"
                     name="full_name"
@@ -34,10 +113,14 @@ export default function UserDetails() {
                     className="form-control"
                     onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["full_name"]}</div>
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">
+                    Residential Address
+                  </label>
                   <input
                     type="text"
                     name="residential_address"
@@ -51,6 +134,9 @@ export default function UserDetails() {
               </div>
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">
+                    Business/Occupation/Trade
+                  </label>
                   <input
                     type="text"
                     name="occupation"
@@ -60,10 +146,12 @@ export default function UserDetails() {
                     defaultValue={data.occupation}
                     onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["occupation"]}</div>
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">Date Of Birth</label>
                   <input
                     type="text"
                     name="date_of_birth"
@@ -77,6 +165,7 @@ export default function UserDetails() {
               </div>
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">Business Address</label>
                   <input
                     type="text"
                     name="business_address"
@@ -90,6 +179,9 @@ export default function UserDetails() {
               </div>
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">
+                    Date Of Incorporation
+                  </label>
                   <input
                     type="text"
                     name="date_of_incorp"
@@ -103,6 +195,7 @@ export default function UserDetails() {
               </div>
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">RC No:</label>
                   <input
                     type="text"
                     name="RC_no"
@@ -116,6 +209,7 @@ export default function UserDetails() {
               </div>
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">Telephone No:</label>
                   <input
                     type="text"
                     name="telephone_no"
@@ -125,10 +219,12 @@ export default function UserDetails() {
                     defaultValue={data.telephone_no}
                     onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["telephone_no"]}</div>
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">Email</label>
                   <input
                     type="text"
                     name="email"
@@ -138,10 +234,12 @@ export default function UserDetails() {
                     defaultValue={data.email}
                     onChange={handleChange}
                   />
+                  <div className="errorMsg">{errors["email"]}</div>
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="form-group">
+                  <label className="form-group-label">Website</label>
                   <input
                     type="text"
                     name="website"
