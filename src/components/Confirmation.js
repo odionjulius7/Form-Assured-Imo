@@ -21,6 +21,7 @@ export default function Confirmation() {
       pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
       pdf.save(`linkageInsurance.pdf`);
     });
+    localStorage.clear();
   };
 
   return (
