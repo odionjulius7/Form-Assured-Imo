@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Col, Container, Navbar } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 import Logo from "../img/favicon.png";
 import CertResult from "../img/linkageCertResult.png";
 

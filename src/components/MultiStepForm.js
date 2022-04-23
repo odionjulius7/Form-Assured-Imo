@@ -1,447 +1,227 @@
-import React, { Component } from "react";
+import React from "react";
 import UserDetails from "./UserDetails";
 import AddressDetails from "./AddressDetails";
 import Confirmation from "./Confirmation";
 import InsuredForm from "./InsuredForm";
 
-class MultiStepForm extends Component {
-  userData;
-  state = {
-    step: 1,
-    fullName: "",
-    lastName: "",
-    email: "",
-    residentialAddress: "",
-    city: "",
-    state: "",
-    zip: "",
-    occupation: "",
-    dateOfBirth: "",
-    businessAddress: "",
-    dateofIncorporation: "",
-    rCNunmber: "",
-    telephoneNumbers: "",
-    website: "",
-    rcNumb1: "",
-    rcNumb2: "",
-    rcNumb3: "",
-    EngNumb1: "",
-    EngNumb2: "",
-    EngNumb3: "",
-    chNumb1: "",
-    chNumb2: "",
-    chNumb3: "",
-    firstMake: "",
-    secondMake: "",
-    thirdMake: "",
-    firstModel: "",
-    secondModel: "",
-    thirdModel: "",
-    firstType: "",
-    secondType: "",
-    thirdType: "",
-    firstYOM: "",
-    secondYOM: "",
-    thirdYOM: "",
-    firstSeatCap: "",
-    secondSeatCap: "",
-    thirdSeatCap: "",
-    firstDOP: "",
-    secondDOP: "",
-    thirdDOP: "",
-    firstPSI: "",
-    secondPSI: "",
-    thirdPSI: "",
-    coverType: "",
-    PrivateUse: "",
-    commercialUse: "",
-    personal: "",
-    hirePurchase: "",
-    carriageGN: "",
-    cartageFOP: "",
-    vehicleAltered: "",
-    optTOCartageFOPVehicleAlt: "",
-    passangerCarry: "",
-    vehiclePublicUse: "",
-    classOfVehicleLicence: "",
-    nameofProposer: "",
-    selectedFile: null,
-    date: "",
-    //
-    // form validation
-    errors: {},
-  };
+import "./style.css";
 
-  prevStep = () => {
-    const { step } = this.state;
-    this.setState({
-      step: step - 1,
+import Logo from "../img/anambra-logo.png";
+
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
+import { useGlobalContext } from "../InsuranceContext";
+import RadioSection from "./RadioSection";
+import Signature from "./Signature";
+
+export default function MultiStepForm() {
+  const { step } = useGlobalContext();
+
+  const downloadPdfFile = () => {
+    const input = document.getElementById("start");
+    html2canvas(input, {
+      logging: true,
+      letterRendering: 1,
+      useCORS: true,
+    }).then((canvas) => {
+      const imgWidth = 208;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const imgData = canvas.toDataURL("img/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+      pdf.save(`linkageInsurance.pdf`);
     });
   };
 
-  handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    type === "checkbox"
-      ? this.setState({
-          [name]: value,
-        })
-      : this.setState({
-          [name]: value,
-        });
-  };
-
-  nextStep = () => {
-    const { step } = this.state;
-
-    // const isValid = this.validateForm();
-
-    this.setState({
-      step: step + 1,
-    });
-  };
-
-  // handleFileChange = (event) => {
-  //   this.setState({
-  //     selectedFile: event.target.files[0],
-  //   });
-  //   console.log(this.state.selectedFile);
-  // };
-
-  fileToDataUri = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        resolve(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    });
-
-  handleFileChange = (file) => {
-    if (!file) {
-      this.setState({
-        selectedFile: null,
-      });
-      return;
-    }
-
-    this.fileToDataUri(file).then((dataUri) => {
-      this.setState({
-        selectedFile: dataUri,
-      });
-    });
-  };
-
-  // React Life Cycle
-  componentDidMount() {
-    this.userData = JSON.parse(localStorage.getItem("user"));
-
-    if (localStorage.getItem("user")) {
-      this.setState({
-        step: this.userData.step,
-        fullName: this.userData.fullName,
-        lastName: this.userData.lastName,
-        email: this.userData.email,
-        residentialAddress: this.userData.residentialAddress,
-        city: this.userData.city,
-        state: this.userData.state,
-        zip: this.userData.zip,
-        occupation: this.userData.occupation,
-        dateOfBirth: this.userData.dateOfBirth,
-        businessAddress: this.userData.businessAddress,
-        dateofIncorporation: this.userData.dateofIncorporation,
-        rCNunmber: this.userData.rCNunmber,
-        telephoneNumbers: this.userData.telephoneNumbers,
-        website: this.userData.website,
-        rcNumb1: this.userData.rcNumb1,
-        rcNumb2: this.userData.rcNumb2,
-        rcNumb3: this.userData.rcNumb3,
-        EngNumb1: this.userData.EngNumb1,
-        EngNumb2: this.userData.EngNumb2,
-        EngNumb3: this.userData.EngNumb3,
-        chNumb1: this.userData.chNumb1,
-        chNumb2: this.userData.chNumb2,
-        chNumb3: this.userData.chNumb3,
-        firstMake: this.userData.firstMake,
-        secondMake: this.userData.secondMake,
-        thirdMake: this.userData.thirdMake,
-        firstModel: this.userData.firstModel,
-        secondModel: this.userData.secondModel,
-        thirdModel: this.userData.thirdModel,
-        firstType: this.userData.firstType,
-        secondType: this.userData.secondType,
-        thirdType: this.userData.thirdType,
-        firstYOM: this.userData.firstYOM,
-        secondYOM: this.userData.secondYOM,
-        thirdYOM: this.userData.thirdYOM,
-        firstSeatCap: this.userData.firstSeatCap,
-        secondSeatCap: this.userData.secondSeatCap,
-        thirdSeatCap: this.userData.thirdSeatCap,
-        firstDOP: this.userData.firstDOP,
-        secondDOP: this.userData.secondDOP,
-        thirdDOP: this.userData.thirdDOP,
-        firstPSI: this.userData.firstPSI,
-        secondPSI: this.userData.secondPSI,
-        thirdPSI: this.userData.thirdPSI,
-        coverType: this.userData.coverType,
-        PrivateUse: this.userData.PrivateUse,
-        commercialUse: this.userData.commercialUse,
-        personal: this.userData.personal,
-        hirePurchase: this.userData.hirePurchase,
-        carriageGN: this.userData.carriageGN,
-        cartageFOP: this.userData.cartageFOP,
-        vehicleAltered: this.userData.vehicleAltered,
-        optTOCartageFOPVehicleAlt: this.userData.optTOCartageFOPVehicleAlt,
-        passangerCarry: this.userData.passangerCarry,
-        vehiclePublicUse: this.userData.vehiclePublicUse,
-        classOfVehicleLicence: this.userData.classOfVehicleLicence,
-        nameofProposer: this.userData.nameofProposer,
-        selectedFile: this.userData.selectedFile,
-        date: this.userData.date,
-      });
-    } else {
-      this.setState({
-        step: 1,
-        fullName: "",
-        lastName: "",
-        email: "",
-        residentialAddress: "",
-        city: "",
-        state: "",
-        zip: "",
-        occupation: "",
-        dateOfBirth: "",
-        businessAddress: "",
-        dateofIncorporation: "",
-        rCNunmber: "",
-        telephoneNumbers: "",
-        //
-        website: "",
-        rcNumb1: "",
-        rcNumb2: "",
-        rcNumb3: "",
-        EngNumb1: "",
-        EngNumb2: "",
-        EngNumb3: "",
-        chNumb1: "",
-        chNumb2: "",
-        chNumb3: "",
-        firstMake: "",
-        secondMake: "",
-        thirdMake: "",
-        firstModel: "",
-        secondModel: "",
-        thirdModel: "",
-        firstType: "",
-        secondType: "",
-        thirdType: "",
-        //
-        firstYOM: "",
-        secondYOM: "",
-        thirdYOM: "",
-        firstSeatCap: "",
-        secondSeatCap: "",
-        thirdSeatCap: "",
-        firstDOP: "",
-        secondDOP: "",
-        thirdDOP: "",
-        firstPSI: "",
-        secondPSI: "",
-        thirdPSI: "",
-        coverType: "",
-        PrivateUse: "",
-        commercialUse: "",
-        //
-        personal: "",
-        hirePurchase: "",
-        carriageGN: "",
-        cartageFOP: "",
-        vehicleAltered: "",
-        optTOCartageFOPVehicleAlt: "",
-        passangerCarry: "",
-        vehiclePublicUse: "",
-        classOfVehicleLicence: "",
-        nameofProposer: "",
-        selectedFile: null,
-        date: "",
-      });
-    }
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    localStorage.setItem("user", JSON.stringify(nextState));
-  }
-
-  render() {
-    const {
-      step,
-      fullName,
-      email,
-      residentialAddress,
-      city,
-      state,
-      zip,
-      occupation,
-      dateOfBirth,
-      businessAddress,
-      dateofIncorporation,
-      rCNunmber,
-      telephoneNumbers,
-      website,
-      rcNumb1,
-      rcNumb2,
-      rcNumb3,
-      EngNumb1,
-      EngNumb2,
-      EngNumb3,
-      chNumb1,
-      chNumb2,
-      chNumb3,
-      firstMake,
-      secondMake,
-      thirdMake,
-      firstModel,
-      secondModel,
-      thirdModel,
-      firstType,
-      secondType,
-      thirdType,
-      firstYOM,
-      secondYOM,
-      thirdYOM,
-      firstSeatCap,
-      secondSeatCap,
-      thirdSeatCap,
-      firstDOP,
-      secondDOP,
-      thirdDOP,
-      firstPSI,
-      secondPSI,
-      thirdPSI,
-      coverType,
-      PrivateUse,
-      commercialUse,
-      personal,
-      hirePurchase,
-      carriageGN,
-      cartageFOP,
-      vehicleAltered,
-      optTOCartageFOPVehicleAlt,
-      passangerCarry,
-      vehiclePublicUse,
-      classOfVehicleLicence,
-      nameofProposer,
-      selectedFile,
-      date,
-      errors,
-    } = this.state;
-    // console.log(errors.fullNameLength);
-    const inputValues = {
-      step,
-      fullName,
-      email,
-      residentialAddress,
-      city,
-      state,
-      zip,
-      occupation,
-      dateOfBirth,
-      businessAddress,
-      dateofIncorporation,
-      rCNunmber,
-      telephoneNumbers,
-      website,
-      rcNumb1,
-      rcNumb2,
-      rcNumb3,
-      EngNumb1,
-      EngNumb2,
-      EngNumb3,
-      chNumb1,
-      chNumb2,
-      chNumb3,
-      firstMake,
-      secondMake,
-      thirdMake,
-      firstModel,
-      secondModel,
-      thirdModel,
-      firstType,
-      secondType,
-      thirdType,
-      firstYOM,
-      secondYOM,
-      thirdYOM,
-      firstSeatCap,
-      secondSeatCap,
-      thirdSeatCap,
-      firstDOP,
-      secondDOP,
-      thirdDOP,
-      firstPSI,
-      secondPSI,
-      thirdPSI,
-      firstPSI,
-      secondPSI,
-      thirdPSI,
-      coverType,
-      PrivateUse,
-      commercialUse,
-      personal,
-      hirePurchase,
-      carriageGN,
-      cartageFOP,
-      vehicleAltered,
-      optTOCartageFOPVehicleAlt,
-      passangerCarry,
-      vehiclePublicUse,
-      classOfVehicleLicence,
-      nameofProposer,
-      selectedFile,
-      date,
-      errors,
-    };
-
+  const displayForm = () => {
     switch (step) {
       case 1:
-        return (
-          <UserDetails
-            nextStep={this.nextStep}
-            handleChange={this.handleChange}
-            inputValues={inputValues}
-            errorClass={this.errorClass}
-          />
-        );
+        return <UserDetails />;
       case 2:
-        return (
-          <AddressDetails
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            inputValues={inputValues}
-          />
-        );
-
+        return <AddressDetails />;
       case 3:
-        return (
-          <InsuredForm
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            handleFileChange={this.handleFileChange}
-            inputValues={inputValues}
-          />
-        );
+        return <RadioSection />;
       case 4:
-        return (
-          <Confirmation
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            inputValues={inputValues}
-          />
-        );
+        return <InsuredForm />;
+      case 5:
+        return <Signature />;
+      case 6:
+        return <Confirmation />;
       default:
     }
-  }
-}
+  };
 
-export default MultiStepForm;
+  return (
+    <>
+      <div className="container-fluid">
+        <div className="row row-height">
+          <div className="col-xl-4 col-lg-4 content-left">
+            <div className="content-left-wrapper">
+              <div>
+                <figure>
+                  <img
+                    style={{ width: "10rem" }}
+                    src={Logo}
+                    alt=""
+                    className={`img-fluid ${
+                      step === 5 || step === 6 ? "mt-5 pt-5 mb-4" : ""
+                    }`}
+                  />
+                </figure>
+                <h2>MOTOR VEHICLE INSURANCE PROPOSAL FORM</h2>
+
+                {step === 5 ? (
+                  <p
+                    style={{
+                      textAlign: "left",
+                    }}
+                  >
+                    <span style={{ fontWeight: "bold" }}> NB:</span> Please read
+                    the following declaration very carefully and read again the
+                    questions and answers especially if not completed in your
+                    own hand, before signing the form.
+                  </p>
+                ) : step === 6 ? (
+                  <button onClick={downloadPdfFile} className="mt-5">
+                    Download Result
+                  </button>
+                ) : (
+                  <>
+                    <p style={{ marginBottom: "10px" }} className="text-left">
+                      In completing the Proposal Form, please ensure that all
+                      questions are answered fully and accurately and where
+                      necessary schedules giving further explanation are
+                      provided:
+                    </p>
+                    <h4
+                      style={{ color: "#fff", fontSize: "1rem" }}
+                      className="pt-3 "
+                    >
+                      IMPORTANT NOTICE CONCERNING DISCLOSURE
+                    </h4>
+                    <ul className="text-left">
+                      <li>
+                        It is your duty to disclose all material facts to
+                        Underwriters.
+                      </li>
+                      <li>
+                        A material fact is one that is likely to influence an
+                        Underwriter’s judgement and acceptance of your proposal.
+                        If your proposal is a renewal of an existing policy, it
+                        should also include any change in facts previously
+                        advised to Underwriters. If you are in any doubt as to
+                        whether or not facts are considered material, you should
+                        disclose them.
+                      </li>
+                      <li>
+                        “An Insurance Agent who assists an applicant to complete
+                        an application or proposal for insurance shall be deemed
+                        to have done so as the agent of the applicant”.
+                      </li>
+                      <li>
+                        Please note that the completion of this form is not
+                        evidence of insurance contract. Linkage Assurance Plc is
+                        not on risk until full premium is paid and relevant
+                        contract documents issued.
+                      </li>
+                    </ul>
+
+                    <div id="text-div-left">
+                      <h4>
+                        PRIVATE CARS/COMMERCIAL VEHICLES/MOTOR CYCLES COVER
+                      </h4>
+                      <p>
+                        The company issues the following forms of motor
+                        insurance policies:
+                      </p>
+                      <h6>(a) COMPREHENSIVE</h6>
+                      <p>
+                        Third Party liability for injury to persons and damage
+                        to property. Loss of or damage to the insured vehicle by
+                        accident, fire or theft, hurricane, earthquake, volcanic
+                        eruption, flood or any convulsion of nature, riot,
+                        strike or civil commotion.
+                      </p>
+                      <h6>(b) THIRD PARTYFIRE & THEFT</h6>
+                      <p>
+                        Third Party liability for injury to persons and damage
+                        to property. Loss of or damage to the insured vehicle by
+                        fire or theft.
+                      </p>
+                      <h6>(c) THIRD PARTYONLY</h6>
+                      <p>
+                        Third Party liability for injury to persons and damage
+                        to property.
+                      </p>
+                      <p>
+                        Policies (a), (b) and (c) include the cover required
+                        under the Third Party insurance legislation
+                      </p>
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className="copy">
+                © Authorised and regulated by the National Insurance Commission.
+                RIC-026
+              </div>
+            </div>
+          </div>
+          <div
+            style={{
+              background: "white",
+            }}
+            className="col-xl-8 col-lg-8 content-right"
+            id="start"
+          >
+            <div
+              // id={`${step === 6 ? "#wizard_container-2" : "wizard_container"}`}
+              id="wizard_container"
+            >
+              <div id="top-wizard">
+                {step === 6 ? null : (
+                  <>
+                    <span id="location">{step} of 5 completed</span>
+                    <div className="progress">
+                      <div
+                        style={{
+                          backgroundColor: "#66cd33",
+                          width:
+                            step === 2
+                              ? "25%"
+                              : step === 3
+                              ? "50%"
+                              : step === 4
+                              ? "75%"
+                              : step === 5
+                              ? "100%"
+                              : "0",
+                        }}
+                        className="progress-bar"
+                        role="progressbar"
+                        aria-valuenow="25"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </>
+                )}
+              </div>
+              {/* <!-- /top-wizard --> */}
+              {displayForm()}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="cd-overlay-nav">
+        <span></span>
+      </div>
+
+      <div className="cd-overlay-content">
+        <span></span>
+      </div>
+    </>
+  );
+}

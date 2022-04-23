@@ -20,8 +20,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route exact path="Step1" element={<Step1 />} />
-        <Route exact path="motorinsurance" element={<MotorInsurance />} />
+        <Route exact path="/Step1" element={<Step1 />} />
+        <Route
+          exact
+          path="/Step1/motorinsurance"
+          element={<MotorInsurance />}
+        />
       </Routes>
     </BrowserRouter>
 

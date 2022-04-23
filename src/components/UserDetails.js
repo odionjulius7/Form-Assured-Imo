@@ -1,344 +1,178 @@
-import React, { Component } from "react";
-import { Form, Button, Col, Container } from "react-bootstrap";
-import Footer from "./Footer";
-import Header from "./Header";
+import React from "react";
 
-class UserDetails extends Component {
-  state = {
-    errors: {},
+import { useGlobalContext } from "../InsuranceContext";
+
+export default function UserDetails() {
+  const { data, nextStep, handleChange } = useGlobalContext();
+
+  const fireNextStep = () => {
+    nextStep();
   };
 
-  validateForm = () => {
-    const { fullName, occupation, telephoneNumbers, email } =
-      this.props.inputValues;
-    let isValid = true;
-    const errors = {};
-    const regex =
-      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    if (fullName === "") {
-      // we use the trim to cut out any white space/ outer space
-      // and at the same time it give the chance to use lenght method
-      errors.fullNameLength = "Full name is requied";
-      isValid = false;
-    }
-    // if (!userName.includes("$")) {
-    //   // if it does not include $ sign den it is not valid
-    //   errors.userName$ = "username must ' $ ' ";
-    //   isValid = false;
-    // }
-
-    if (occupation === "") {
-      // we use the trim to cut out any white space/ outer space
-      // and at the same time it give the chance to use lenght method
-      errors.occupationLength = "Occupation is required";
-      isValid = false;
-    }
-    if (telephoneNumbers === "") {
-      // we use the trim to cut out any white space/ outer space
-      // and at the same time it give the chance to use lenght method
-      errors.telephoneNumbersLength = "Occupation is required";
-      isValid = false;
-    }
-    if (!email || regex.test(email) === false) {
-      // we use the trim to cut out any white space/ outer space
-      // and at the same time it give the chance to use lenght method
-      errors.emailLength = "Occupation is required";
-      isValid = false;
-    }
-    this.setState({ errors });
-    return isValid; // let return valid state e.i true or false
-  };
-
-  back = (e) => {
-    e.preventDefault();
-    this.props.prevStep();
-  };
-
-  saveAndContinue = (e) => {
-    e.preventDefault();
-    const isValid = this.validateForm();
-
-    if (isValid) {
-      this.props.nextStep();
-    }
-  };
-
-  render() {
-    return (
-      <>
-        <Header />
-        <div id="body-div">
-          <Form className="container">
-            <div className="container form-content m-1">
-              <p className="form_content-p">
-                In completing the Proposal Form, please ensure that questions
-                are answered fully and accurately and where necessary schedules
-                giving further explanation are provided.
-              </p>
-              <div className="form_content-div">
-                <h2 className="form_content-h2">
-                  IMPORTANT NOTICE CONCERNING DISCLOSURE
-                </h2>
-                <p className="form_content-p">
-                  It is your duty to disclose all material facts to
-                  Underwriters. A material fact is one that is likely to
-                  influence an Underwriter’s judgement and acceptance of your
-                  proposal. If your proposal is a renewal of an existing policy,
-                  it should also include any change in facts previously advised
-                  to Underwriters. If you are in any doubt as to whether or not
-                  facts are considered material, you should disclose them. “An
-                  Insurance Agent who assists an applicant to complete an
-                  application or proposal for insurance shall be deemed to have
-                  done so as the agent of the applicant”. Please note that the
-                  completion of this form is not evidence of insurance contract.
-                  Linkage Assurance Plc is not on risk until full premium is
-                  paid and relevant contract documents issued.
-                </p>
+  return (
+    <>
+      <form
+        id="wrapped"
+        method="post"
+        action="step-4.html"
+        // enctype="multipart/form-data"
+      >
+        <input id="website" name="website" type="text" value="" />
+        <div id="middle-wizard">
+          <div className="step">
+            <h2 className="section_title">Section A</h2>
+            <h3 className="main_question">PERSONAL DETAILS</h3>
+            <div className="row">
+              <div className="col-md-6">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="full_name"
+                    id="full_name"
+                    placeholder="Full Name of Proposer"
+                    defaultValue={data.full_name}
+                    className="form-control"
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
-              <div className=" form_content-announce">
-                <h2 className="form_content-h2">
-                  PRIVATE CARS/COMMERCIAL VEHICLES/MOTOR CYCLES COVER
-                </h2>
-                <span className="form_content-p">
-                  The company issues the following forms of motor insurance
-                  policies:
-                </span>
-                <div>
-                  <h4 className="form_content-h4">(a) COMPREHENSIVE</h4>
-                  <span className="form_content-p">
-                    Third Party liability for injury to persons and damage to
-                    property. Loss of or damage to the insured vehicle by
-                    accident, fire or theft, hurricane, earthquake, volcanic
-                    eruption, flood or any convulsion of nature, riot, strike or
-                    civil commotion.
-                  </span>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="residential_address"
+                    placeholder="Residential Address (individual only)"
+                    id="residential_address"
+                    className="form-control"
+                    defaultValue={data.residential_address}
+                    onChange={handleChange}
+                  />
                 </div>
-                <div>
-                  <h4 className="form_content-h4">
-                    (b) THIRD PARTYFIRE & THEFT
-                  </h4>
-                  <span className="form_content-p">
-                    Third Party liability for injury to persons and damage to
-                    property. Loss of or damage to the insured vehicle by fire
-                    or theft
-                  </span>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="occupation"
+                    placeholder="Business/Occupation/Trade"
+                    id="occupation"
+                    className="form-control"
+                    defaultValue={data.occupation}
+                    onChange={handleChange}
+                  />
                 </div>
-                <div>
-                  <h4 className="form_content-h4">(c) THIRD PARTYONLY</h4>
-                  <span className="form_content-p">
-                    Third Party liability for injury to persons and damage to
-                    property. Policies (a), (b) and (c) include the cover
-                    required under the Third Party insurance legislation.
-                  </span>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="date_of_birth"
+                    id="date_of_birth"
+                    placeholder="Date of Birth(individual only)"
+                    className="form-control"
+                    defaultValue={data.date_of_birth}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="business_address"
+                    id="business_address"
+                    placeholder="Business Address"
+                    className="form-control"
+                    defaultValue={data.business_address}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="date_of_incorp"
+                    id="date_of_incorp"
+                    defaultValue={data.date_of_incorp}
+                    placeholder="Date of Incorporation (corporate only)"
+                    className="form-control"
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="RC_no"
+                    id="RC_no"
+                    defaultValue={data.RC_no}
+                    placeholder="RC No (corporate only)"
+                    className="form-control"
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="telephone_no"
+                    id="telephone_no"
+                    placeholder="Telephone Numbers"
+                    className="form-control"
+                    defaultValue={data.telephone_no}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="Email Address"
+                    className="form-control"
+                    defaultValue={data.email}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="website"
+                    // id="website"
+                    placeholder="Website (corporate)"
+                    className="form-control"
+                    defaultValue={data.website}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
             </div>
-            <div className="container mt-4">
-              <h4>SECTION A: PERSONAL DETAILS</h4>
-            </div>
-            <Form.Group
-              className="container pernal-details mt-2 mb-3 d-flex"
-              controlId="formFullName"
-            >
-              <Form.Label className="label form-group-label">
-                <span className="form-group-span">1:</span>{" "}
-                <em>Full Name Of Proposer:</em>
-              </Form.Label>
-              <Form.Control
-                isInvalid={
-                  this.state.errors.fullNameLength &&
-                  this.props.inputValues.fullName === ""
-                }
-                type="text"
-                defaultValue={this.props.inputValues.fullName}
-                name="fullName"
-                required
-                onChange={this.props.handleChange}
-              />
-              {/* <p></p> */}
-            </Form.Group>
-
-            <Form.Group
-              className="container pernal-details mt-2 mb-3 d-flex"
-              controlId="formResidentialAddress"
-            >
-              <Form.Label className="label form-group-label">
-                <span className="form-group-span">2:</span>{" "}
-                <em>Residential Address (individual customers only):</em>
-              </Form.Label>
-              <Form.Control
-                type="text"
-                defaultValue={this.props.inputValues.residentialAddress}
-                name="residentialAddress"
-                required
-                onChange={this.props.handleChange}
-              />
-            </Form.Group>
-            {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group> */}
-            <Form.Group
-              className="container pernal-details mt-2 mb-3 d-flex"
-              controlId="formOccupation"
-            >
-              <Form.Label className="label form-group-label">
-                <span className="form-group-span">3:</span>{" "}
-                <em>Business/Occupation/Trade:</em>
-              </Form.Label>
-              <Form.Control
-                isInvalid={
-                  this.state.errors.occupationLength &&
-                  this.props.inputValues.occupation === ""
-                }
-                type="email"
-                defaultValue={this.props.inputValues.occupation}
-                name="occupation"
-                required
-                onChange={this.props.handleChange}
-              />
-            </Form.Group>
-            <Form.Group
-              className="container pernal-details mt-2 mb-3 d-flex"
-              controlId="formDateOfBirth"
-            >
-              <Form.Label className="label form-group-label">
-                <span className="form-group-span">4:</span>{" "}
-                <em>Date of Birth(individual customers only):</em>
-              </Form.Label>
-              <Form.Control
-                type="email"
-                defaultValue={this.props.inputValues.dateOfBirth}
-                name="dateOfBirth"
-                required
-                onChange={this.props.handleChange}
-              />
-            </Form.Group>
-            <Form.Group
-              className="container pernal-details mt-2 mb-3 d-flex"
-              controlId="formBusinessAddress"
-            >
-              <Form.Label className="label form-group-label">
-                <span className="form-group-span">5:</span>{" "}
-                <em>Business Address:</em>
-              </Form.Label>
-              <Form.Control
-                type="text"
-                defaultValue={this.props.inputValues.businessAddress}
-                name="businessAddress"
-                required
-                onChange={this.props.handleChange}
-              />
-            </Form.Group>
-            <Form.Group
-              className="container pernal-details mt-2 mb-3 d-flex twoDiv"
-              controlId="formDateofIncorporation"
-            >
-              <div className="div-incorp">
-                <Form.Label className="label">
-                  <span className="form-group-span">6:</span>{" "}
-                  <em>Date of Incorporation (corporate customers only):</em>
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  defaultValue={this.props.inputValues.dateofIncorporation}
-                  name="dateofIncorporation"
-                  required
-                  onChange={this.props.handleChange}
-                />
-              </div>
-              <div className="div-incorp2">
-                <Form.Label className="label">
-                  <em>RC No.</em>
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  defaultValue={this.props.inputValues.rCNunmber}
-                  name="rCNunmber"
-                  required
-                  onChange={this.props.handleChange}
-                />
-              </div>
-            </Form.Group>
-            <Form.Group
-              className="container pernal-details mt-2 mb-3 d-flex"
-              controlId="formTelephoneNumbers"
-            >
-              <Form.Label className="label form-group-label">
-                <span className="form-group-span">7:</span>{" "}
-                <em>Telephone Numbers:</em>
-              </Form.Label>
-              <Form.Control
-                isInvalid={
-                  this.state.errors.telephoneNumbersLength &&
-                  this.props.inputValues.telephoneNumbers === ""
-                }
-                type="text"
-                defaultValue={this.props.inputValues.telephoneNumbers}
-                name="telephoneNumbers"
-                required
-                onChange={this.props.handleChange}
-              />
-            </Form.Group>
-            <Form.Group
-              className="container pernal-details mt-2 mb-3 d-flex"
-              controlId="formEmail"
-            >
-              <Form.Label className="label form-group-label">
-                <span className="form-group-span">8:</span>{" "}
-                <em>Email Address:</em>
-              </Form.Label>
-              <Form.Control
-                isInvalid={this.state.errors.emailLength}
-                type="text"
-                defaultValue={this.props.inputValues.email}
-                name="email"
-                required
-                onChange={this.props.handleChange}
-              />
-              {/* <p>{this.props.inputValues.errors.emailLength}</p> */}
-            </Form.Group>
-            <Form.Group
-              className="container pernal-details mt-2 mb-3 d-flex"
-              controlId="formWebsite"
-            >
-              <Form.Label className="label form-group-label">
-                <span className="form-group-span">9:</span>{" "}
-                <em>Website (corporate proposers only):</em>
-              </Form.Label>
-              <Form.Control
-                type="text"
-                defaultValue={this.props.inputValues.website}
-                name="website"
-                required
-                onChange={this.props.handleChange}
-              />
-            </Form.Group>
-            <Button
-              className="m-2 pl-2 pr-2"
-              variant="primary"
-              onClick={this.saveAndContinue}
-            >
-              Continue
-            </Button>
-          </Form>
+          </div>
+          {/* <!-- /step--> */}
         </div>
-        <Footer />
-      </>
-    );
-  }
+        {/* <!-- /middle-wizard --> */}
+        <div id="bottom-wizard">
+          {/* <a href="step-2.html" name="backward" className="backward">
+            Prev
+          </a> */}
+          <button
+            type="submit"
+            name="forward"
+            className="forward"
+            onClick={fireNextStep}
+          >
+            Next
+          </button>
+        </div>
+        {/* <!-- /bottom-wizard --> */}
+      </form>
+    </>
+  );
 }
-
-export default UserDetails;
-// fullName,
-//       email,
-//       residentialAddress,
-//       city,
-//       state,
-//       zip,
-//       occupation,
-//       dateOfBirth,
-//       businessAddress,
-//       dateofIncorporation,
-//       rCNunmber,
-//       telephoneNumbers,
-//       website,
