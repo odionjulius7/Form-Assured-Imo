@@ -6,11 +6,12 @@ const InsuranceContext = createContext();
 
 const InsuranceContextProvider = (props) => {
   const [data, setData] = useState(formData);
-  const [step, setStep] = useState(() => {
-    const saved = localStorage.getItem("step");
-    const initialValue = JSON.parse(saved);
-    return initialValue || 1;
-  });
+  const [step, setStep] = useState(1);
+  // const [step, setStep] = useState(() => {
+  //   const saved = localStorage.getItem("step");
+  //   const initialValue = JSON.parse(saved);
+  //   return initialValue || 1;
+  // });
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -69,9 +70,9 @@ const InsuranceContextProvider = (props) => {
     setStep((prev) => prev - 1);
   };
 
-  useEffect(() => {
-    localStorage.setItem("step", JSON.stringify(step));
-  }, [step]);
+  // useEffect(() => {
+  //   localStorage.setItem("step", JSON.stringify(step));
+  // }, [step]);
 
   // useEffect(() => {
   //   const step = JSON.parse(localStorage.getItem("step"));
