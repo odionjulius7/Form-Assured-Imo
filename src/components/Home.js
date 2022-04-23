@@ -36,7 +36,10 @@ export default function Home() {
                 full premium is paid and relevant contract documents issued.
               </p>
 
-              <Link to="step1" className="btn btn-primary btn-lg mt-70 mx-auto">
+              <Link
+                to="/motorinsurance"
+                className="btn btn-primary btn-lg mt-70 mx-auto"
+              >
                 Start your Application
               </Link>
             </div>

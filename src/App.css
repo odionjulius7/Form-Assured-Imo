@@ -262,6 +262,12 @@ tr {
   }
 }
 
+@media screen and (max-width: 991px) {
+  .content-left-wrapper figure img {
+    height: 160px;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .first-btn-edit {
     margin-top: 8rem !important;
@@ -387,6 +393,11 @@ tr {
   } */
 }
 
+@media screen and (max-width: 600px) {
+  .content-wrapper {
+    padding: 50px 43px;
+  }
+}
 @media screen and (max-width: 450px) {
   .first-btn-edit {
     margin-top: 20rem !important;

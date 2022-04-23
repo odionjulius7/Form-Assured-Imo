@@ -108,7 +108,7 @@ export default function UserDetails() {
                     type="text"
                     name="full_name"
                     id="full_name"
-                    placeholder="Full Name of Proposer"
+                    // placeholder="Full Name of Proposer"
                     defaultValue={data.full_name}
                     className="form-control"
                     onChange={handleChange}
@@ -140,7 +140,7 @@ export default function UserDetails() {
                   <input
                     type="text"
                     name="occupation"
-                    placeholder="Business/Occupation/Trade"
+                    // placeholder="Business/Occupation/Trade"
                     id="occupation"
                     className="form-control"
                     defaultValue={data.occupation}
@@ -170,7 +170,7 @@ export default function UserDetails() {
                     type="text"
                     name="business_address"
                     id="business_address"
-                    placeholder="Business Address"
+                    // placeholder="Business Address"
                     className="form-control"
                     defaultValue={data.business_address}
                     onChange={handleChange}
@@ -214,7 +214,7 @@ export default function UserDetails() {
                     type="text"
                     name="telephone_no"
                     id="telephone_no"
-                    placeholder="Telephone Numbers"
+                    // placeholder="Telephone Numbers"
                     className="form-control"
                     defaultValue={data.telephone_no}
                     onChange={handleChange}
@@ -229,7 +229,7 @@ export default function UserDetails() {
                     type="text"
                     name="email"
                     id="email"
-                    placeholder="Email Address"
+                    // placeholder="Email Address"
                     className="form-control"
                     defaultValue={data.email}
                     onChange={handleChange}
