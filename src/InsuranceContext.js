@@ -1,5 +1,6 @@
 import React, { useState, createContext, useContext, useEffect } from "react";
 
+import moment from "moment";
 import formData from "./formData";
 // import DATA from "./Data.json";
 const InsuranceContext = createContext();
@@ -7,14 +8,27 @@ const InsuranceContext = createContext();
 const InsuranceContextProvider = (props) => {
   const [data, setData] = useState(formData);
   const [step, setStep] = useState(1);
-  // let showDate = new Date();
-  // let todaysDate =
-  //   `showDate.getDate()  / showDate.getMonth "/" + showDate.getFullYear`;
   // const [step, setStep] = useState(() => {
   //   const saved = localStorage.getItem("step");
   //   const initialValue = JSON.parse(saved);
   //   return initialValue || 1;
   // });
+
+  // 22/108824LKG
+  // 22/70622LKG
+
+  let yearN = moment().format("YY");
+
+  const generateCertNo = () => {
+    let RandomN = Math.floor(Math.random() * 1000) + yearN;
+    let letter = "LKG";
+    const number = yearN + "/" + RandomN + letter;
+    return number;
+  };
+
+  console.log(generateCertNo());
+  let todaysDate = moment().format("L");
+  let futureDate = moment().add(1, "year").calendar();
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -95,7 +109,9 @@ const InsuranceContextProvider = (props) => {
         handleChange,
         handleFileChange,
         forward,
-        // todaysDate,
+        todaysDate,
+        futureDate,
+        generateCertNo,
       }}
     >
       {props.children}

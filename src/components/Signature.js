@@ -13,7 +13,7 @@ export default function Signature() {
     prevStep,
     handleChange,
     handleFileChange,
-    // todaysDate,
+    todaysDate,
   } = useGlobalContext();
   const { proposersName, date, scanSignature } = data;
 
@@ -33,10 +33,10 @@ export default function Signature() {
       formIsValid = false;
       errors["scanSignature"] = "*Please enter field.";
     }
-    if (!date) {
-      formIsValid = false;
-      errors["date"] = "*Please enter field.";
-    }
+    // if (!date) {
+    //   formIsValid = false;
+    //   errors["date"] = "*Please enter field.";
+    // }
 
     setError(errors);
     return formIsValid;
@@ -146,7 +146,7 @@ export default function Signature() {
                     id="date"
                     className="form-control"
                     placeholder="Date"
-                    defaultValue={date}
+                    defaultValue={todaysDate}
                     onChange={handleChange}
                     // readOnly="true"
                   />

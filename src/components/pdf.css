@@ -57,7 +57,7 @@
 }
 
 .signed-img {
-  width: 20rem;
+  width: 17rem;
   height: 7rem;
   border: 1px solid rgb(177, 173, 173);
   margin-top: 1rem;
@@ -67,16 +67,18 @@
 }
 
 .Sign_logo {
+  /* width: 5rem; */
   margin-top: 1.5rem;
   background: transparent;
 }
 
 .img-fluid-sign-1 {
-  width: 90% !important;
+  background: transparent !important;
+  width: 80% !important;
   max-height: 80%;
 }
 
 .img-fluid-sign {
-  width: 80% !important;
+  width: 70% !important;
   /* max-height: 6rem; */
 }
