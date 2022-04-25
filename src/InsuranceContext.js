@@ -6,13 +6,18 @@ import formData from "./formData";
 const InsuranceContext = createContext();
 
 const InsuranceContextProvider = (props) => {
-  const [data, setData] = useState(formData);
-  const [step, setStep] = useState(1);
-  // const [step, setStep] = useState(() => {
-  //   const saved = localStorage.getItem("step");
-  //   const initialValue = JSON.parse(saved);
-  //   return initialValue || 1;
-  // });
+  // const [data, setData] = useState(formData);
+  const [data, setData] = useState(() => {
+    const saved = localStorage.getItem("data");
+    const initialValue = JSON.parse(saved);
+    return initialValue || formData;
+  });
+  // const [step, setStep] = useState(1);
+  const [step, setStep] = useState(() => {
+    const saved = localStorage.getItem("step");
+    const initialValue = JSON.parse(saved);
+    return initialValue || 1;
+  });
 
   // 22/108824LKG
   // 22/70622LKG
@@ -26,9 +31,36 @@ const InsuranceContextProvider = (props) => {
     return number;
   };
 
-  console.log(generateCertNo());
+  const pushCertNo = () => {
+    setData((prev) => {
+      return {
+        ...prev,
+        certificationNum: generateCertNo(),
+      };
+    });
+  };
+
+  // console.log(generateCertNo());
   let todaysDate = moment().format("L");
-  let futureDate = moment().add(1, "year").calendar();
+  let futureDate1 = moment().add(1, "year").calendar();
+
+  const getToday = () => {
+    setData((prev) => {
+      return {
+        ...prev,
+        date: todaysDate,
+      };
+    });
+  };
+  const getFutureDate = () => {
+    setData((prev) => {
+      return {
+        ...prev,
+        futureDate: futureDate1,
+      };
+    });
+  };
+  // const getFutureDate = () => futureDate;
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -87,9 +119,13 @@ const InsuranceContextProvider = (props) => {
     setStep((prev) => prev - 1);
   };
 
-  // useEffect(() => {
-  //   localStorage.setItem("step", JSON.stringify(step));
-  // }, [step]);
+  useEffect(() => {
+    localStorage.setItem("step", JSON.stringify(step));
+  }, [step]);
+
+  useEffect(() => {
+    localStorage.setItem("data", JSON.stringify(data));
+  }, [data]);
 
   // useEffect(() => {
   //   const step = JSON.parse(localStorage.getItem("step"));
@@ -110,8 +146,10 @@ const InsuranceContextProvider = (props) => {
         handleFileChange,
         forward,
         todaysDate,
-        futureDate,
         generateCertNo,
+        getToday,
+        getFutureDate,
+        pushCertNo,
       }}
     >
       {props.children}

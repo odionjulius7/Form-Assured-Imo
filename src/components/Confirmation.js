@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import "./pdf.css";
-import CertResult from "../img/linkageCertResult.png";
+// import CertResult from "../img/linkageCertResult.png";
+import CertResult from "../img/anambra-logo.png";
 import SignedLogo from "../img/signed_logo.png";
 import MDSigned from "../img/MDSigned.png";
 
@@ -11,7 +12,7 @@ import { useGlobalContext } from "../InsuranceContext";
 
 export default function Confirmation() {
   const { data, futureDate, generateCertNo, todaysDate } = useGlobalContext();
-  const { scanSignature } = data;
+  const { scanSignature, date } = data;
 
   console.log(futureDate);
 
@@ -23,7 +24,7 @@ export default function Confirmation() {
             <div
               className="col-md-6"
               style={{
-                margin: "0 auto",
+                margin: "0rem auto",
                 // marginTop: "-5rem",
                 // marginBottom: "-1rem",
               }}
@@ -61,7 +62,7 @@ export default function Confirmation() {
           <Row>
             <Col>
               <h6 className="pdf-head6">
-                CERTIFICATE NO.: <span>{generateCertNo()}</span>
+                CERTIFICATE NO.: <span>{data.certificationNum}</span>
               </h6>
             </Col>
             <Col>
@@ -92,12 +93,12 @@ export default function Confirmation() {
               </h6>
               <h6 className="pdf-paraph1">
                 3. Effective Date of Commencement of Insurance for the purposes
-                of the Ordinance(s): <span className="">{todaysDate}</span>
+                of the Ordinance(s): <span className="">{data.date}</span>
               </h6>
               <h6 className="pdf-paraph1">
                 4. Date of Expiry of Insurance:
                 <span style={{ paddingLeft: "0.4rem" }} className="">
-                  {futureDate}
+                  {data.futureDate}
                 </span>
               </h6>
               <Row>
@@ -184,11 +185,11 @@ export default function Confirmation() {
           <Row>
             <Col className="text-left">
               <div className="signed-img">
-                <img
+                {/* <img
                   src={scanSignature}
                   alt="sign here"
                   className="img-fluid img-fluid-sign-1"
-                />
+                /> */}
               </div>
             </Col>
             <Col>

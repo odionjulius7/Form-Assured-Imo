@@ -290,7 +290,7 @@ export default function InsuredForm() {
       
               </div>
             </div> */}
-            <hr className="mt-7" />
+            {/* <hr className="mt-7" /> */}
             {/* <div className="row">
               
               </div>

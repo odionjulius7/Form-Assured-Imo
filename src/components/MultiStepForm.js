@@ -35,6 +35,7 @@ export default function MultiStepForm() {
       pdf.save(`linkageInsurance.pdf`);
     });
     localStorage.clear();
+    // window.location.href = "/";
   };
 
   const displayForm = () => {

@@ -14,6 +14,9 @@ export default function Signature() {
     handleChange,
     handleFileChange,
     todaysDate,
+    getToday,
+    getFutureDate,
+    pushCertNo,
   } = useGlobalContext();
   const { proposersName, date, scanSignature } = data;
 
@@ -29,10 +32,10 @@ export default function Signature() {
       errors["proposersName"] = "*Please enter field.";
     }
 
-    if (!scanSignature) {
-      formIsValid = false;
-      errors["scanSignature"] = "*Please enter field.";
-    }
+    // if (!scanSignature) {
+    //   formIsValid = false;
+    //   errors["scanSignature"] = "*Please enter field.";
+    // }
     // if (!date) {
     //   formIsValid = false;
     //   errors["date"] = "*Please enter field.";
@@ -42,13 +45,7 @@ export default function Signature() {
     return formIsValid;
   };
 
-  // const fireSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (validateForm()) {
-  //     forward();
-  //   }
-  //   return;
-  // };
+  console.log(todaysDate);
 
   const backToPrevStep = (e) => {
     e.preventDefault();
@@ -59,6 +56,9 @@ export default function Signature() {
     e.preventDefault();
     if (validateForm()) {
       nextStep();
+      getToday();
+      getFutureDate();
+      pushCertNo();
     }
     return;
   };
@@ -118,7 +118,7 @@ export default function Signature() {
             {/* <div className="row"></div> */}
             <hr className="mt-7" />
             <div className="row">
-              <div className="col-md-6">
+              {/* <div className="col-md-6">
                 <div className="form-group">
                   <label className="form-group-label">
                     Proposer’s Signature:
@@ -136,21 +136,21 @@ export default function Signature() {
                     <div className="errorMsg">{errors["scanSignature"]}</div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="col-md-6">
                 <div className="form-group">
-                  <label className="form-group-label">Date;</label>
+                  <label className="form-group-label">Date</label>
                   <input
                     type="text"
                     name="date"
                     id="date"
                     className="form-control"
-                    placeholder="Date"
-                    defaultValue={todaysDate}
+                    // placeholder="Date"
+                    value={todaysDate}
                     onChange={handleChange}
                     // readOnly="true"
                   />
-                  <div className="errorMsg">{errors["date"]}</div>
+                  {/* <div className="errorMsg">{errors["date"]}</div> */}
                 </div>
               </div>
             </div>

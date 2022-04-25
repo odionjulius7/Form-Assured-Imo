@@ -1,3 +1,5 @@
+// import moment from "moment";
+
 const formData = {
   full_name: "",
   residential_address: "",
@@ -40,6 +42,9 @@ const formData = {
   proposersName: "",
   scanSignature: null,
   date: "",
+
+  certificationNum: "",
+  futureDate: "",
 };
 
 export default formData;
