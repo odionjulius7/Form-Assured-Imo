@@ -1,10 +1,11 @@
 // import { isOpacityEffect } from "html2canvas/dist/types/render/effects";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { Form, Button, Col, Container, Table } from "react-bootstrap";
 import { useGlobalContext } from "../InsuranceContext";
 
 export default function Signature() {
+  const navigate = useNavigate();
   const {
     step,
     data,
@@ -12,7 +13,7 @@ export default function Signature() {
     prevStep,
     handleChange,
     handleFileChange,
-    forward,
+    // todaysDate,
   } = useGlobalContext();
   const { proposersName, date, scanSignature } = data;
 
@@ -41,22 +42,26 @@ export default function Signature() {
     return formIsValid;
   };
 
-  const fireSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      forward();
-    }
-    return;
-  };
+  // const fireSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //     forward();
+  //   }
+  //   return;
+  // };
 
   const backToPrevStep = (e) => {
     e.preventDefault();
     prevStep();
   };
-  // proposersName: "",
-  // scanSignature: "",
-  // date:
-  console.log(errors);
+
+  const navigateToPayment = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      nextStep();
+    }
+    return;
+  };
 
   return (
     <>
@@ -143,6 +148,7 @@ export default function Signature() {
                     placeholder="Date"
                     defaultValue={date}
                     onChange={handleChange}
+                    // readOnly="true"
                   />
                   <div className="errorMsg">{errors["date"]}</div>
                 </div>
@@ -154,16 +160,14 @@ export default function Signature() {
           <button name="backward" className="backward" onClick={backToPrevStep}>
             Prev
           </button>
-          <Link to="/payment">
-            <button
-              type="submit"
-              name="forward"
-              className="forward"
-              // onClick={fireSubmit}
-            >
-              Submit
-            </button>
-          </Link>
+          <button
+            type="submit"
+            name="forward"
+            className="forward"
+            onClick={navigateToPayment}
+          >
+            Submit
+          </button>
         </div>
       </form>
       {/* <img

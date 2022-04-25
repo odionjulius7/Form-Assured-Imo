@@ -107,7 +107,7 @@ export default function AddressDetails() {
                     type="text"
                     name="registeration_no"
                     id="registeration_no"
-                    placeholder="Registration Number"
+                    // placeholder="Registration Number"
                     className="form-control"
                     defaultValue={data.registeration_no}
                     onChange={handleChange}
@@ -122,7 +122,7 @@ export default function AddressDetails() {
                     type="text"
                     name="engine_no"
                     id="engine_no"
-                    placeholder="Engine Number"
+                    // placeholder="Engine Number"
                     className="form-control"
                     defaultValue={data.engine_no}
                     onChange={handleChange}
@@ -137,7 +137,7 @@ export default function AddressDetails() {
                     type="text"
                     name="chassis_no"
                     id="chassis_no"
-                    placeholder="Chassis Number"
+                    // placeholder="Chassis Number"
                     className="form-control"
                     defaultValue={data.chassis_no}
                     onChange={handleChange}
@@ -155,7 +155,7 @@ export default function AddressDetails() {
                     type="text"
                     name="make"
                     id="make"
-                    placeholder="Make"
+                    // placeholder="Make"
                     className="form-control"
                     defaultValue={data.make}
                     onChange={handleChange}
@@ -173,7 +173,7 @@ export default function AddressDetails() {
                     type="text"
                     name="model"
                     id="model"
-                    placeholder="Model"
+                    // placeholder="Model"
                     className="form-control"
                     defaultValue={data.model}
                     onChange={handleChange}
@@ -189,7 +189,7 @@ export default function AddressDetails() {
                     type="text"
                     name="type_of_body"
                     id="type_of_body"
-                    placeholder="Type of Body"
+                    // placeholder="Type of Body"
                     className="form-control"
                     defaultValue={data.type_of_body}
                     onChange={handleChange}
@@ -208,7 +208,7 @@ export default function AddressDetails() {
                     type="text"
                     name="year_manufacture"
                     id="year_manufacture"
-                    placeholder="Year of Manufacture"
+                    // placeholder="Year of Manufacture"
                     className="form-control"
                     defaultValue={data.year_manufacture}
                     onChange={handleChange}
@@ -224,7 +224,7 @@ export default function AddressDetails() {
                     type="text"
                     name="seat_capacity"
                     id="seat_capacity"
-                    placeholder=" Carrying or Seating Capacity"
+                    // placeholder=" Carrying or Seating Capacity"
                     className="form-control"
                     defaultValue={data.seat_capacity}
                     onChange={handleChange}
@@ -239,7 +239,7 @@ export default function AddressDetails() {
                     type="text"
                     name="datae_purchase"
                     id="datae_purchase"
-                    placeholder="Date of Purchase"
+                    // placeholder="Date of Purchase"
                     className="form-control"
                     defaultValue={data.datae_purchase}
                     onChange={handleChange}
@@ -255,7 +255,7 @@ export default function AddressDetails() {
                     type="text"
                     name="proposes_sum"
                     id="proposes_sum"
-                    placeholder="Proposed Sum Insured (N)"
+                    // placeholder="Proposed Sum Insured (N)"
                     className="form-control"
                     defaultValue={data.proposes_sum}
                     onChange={handleChange}

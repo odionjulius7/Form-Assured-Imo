@@ -7,6 +7,9 @@ const InsuranceContext = createContext();
 const InsuranceContextProvider = (props) => {
   const [data, setData] = useState(formData);
   const [step, setStep] = useState(1);
+  // let showDate = new Date();
+  // let todaysDate =
+  //   `showDate.getDate()  / showDate.getMonth "/" + showDate.getFullYear`;
   // const [step, setStep] = useState(() => {
   //   const saved = localStorage.getItem("step");
   //   const initialValue = JSON.parse(saved);
@@ -92,6 +95,7 @@ const InsuranceContextProvider = (props) => {
         handleChange,
         handleFileChange,
         forward,
+        // todaysDate,
       }}
     >
       {props.children}

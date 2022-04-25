@@ -1,18 +1,19 @@
 .coverDownload {
   background: #fff;
-  width: 100vw;
+  width: 50rem;
   min-height: 100vh;
-  padding: 2rem auto;
+  /* padding: 0reauto; */
 }
 
 #downloadable {
   margin: 0 auto;
   width: 100%;
-  padding-top: 5rem;
+  /* padding-top: 1rem; */
   /* min-height: 100vh !important; */
 }
 
 .logo-img2 {
+  margin-top: -2rem;
   width: 20rem !important;
 }
 
@@ -40,6 +41,10 @@
   font-size: 1rem;
 }
 
+.pdf-paraph1 {
+  padding-top: 0.7rem;
+}
+
 .pdf-paraph1 span {
   /* font-size: 1rem; */
   font-weight: 700;
@@ -49,4 +54,29 @@
   font-size: 1.1rem;
   /* margin-left: 1.5rem; */
   text-align: center;
+}
+
+.signed-img {
+  width: 20rem;
+  height: 7rem;
+  border: 1px solid rgb(177, 173, 173);
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Sign_logo {
+  margin-top: 1.5rem;
+  background: transparent;
+}
+
+.img-fluid-sign-1 {
+  width: 90% !important;
+  max-height: 80%;
+}
+
+.img-fluid-sign {
+  width: 80% !important;
+  /* max-height: 6rem; */
 }
