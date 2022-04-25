@@ -32,7 +32,7 @@ export default function MultiStepForm() {
       const imgData = canvas.toDataURL("img/png");
       const pdf = new jsPDF("p", "mm", "a4");
       pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-      pdf.save(`linkageInsurance.pdf`);
+      pdf.save(`Anambra_Insurance_Certificate.pdf`);
     });
     localStorage.clear();
     // window.location.href = "/";

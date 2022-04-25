@@ -179,7 +179,7 @@ export default function Confirmation() {
           </Row>
           <Row>
             <p className="" style={{ textAlign: "center" }}>
-              For and on behalf of the LINKAGE ASSURANCE PLC
+              For and on behalf of the Anambra Third Party Motor Insurance
             </p>
           </Row>
           <Row>
