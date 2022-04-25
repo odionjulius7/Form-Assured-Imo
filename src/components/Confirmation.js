@@ -10,7 +10,7 @@ import { useGlobalContext } from "../InsuranceContext";
 // IMPORT UP
 
 export default function Confirmation() {
-  const { data, futureDate, generateCertNo } = useGlobalContext();
+  const { data, futureDate, generateCertNo, todaysDate } = useGlobalContext();
   const { scanSignature } = data;
 
   console.log(futureDate);
@@ -80,7 +80,9 @@ export default function Confirmation() {
                 </h6>
               </div>
               <div className="col-md-5 mb-2">
-                <h6 className="pdf-head5">TOYOTA - HIGHLANDER</h6>
+                <h6 className="pdf-head5">
+                  {data.make} - {data.model}
+                </h6>
               </div>
             </Row>
             <Row>
@@ -90,7 +92,7 @@ export default function Confirmation() {
               </h6>
               <h6 className="pdf-paraph1">
                 3. Effective Date of Commencement of Insurance for the purposes
-                of the Ordinance(s): <span className="">{data.date}</span>
+                of the Ordinance(s): <span className="">{todaysDate}</span>
               </h6>
               <h6 className="pdf-paraph1">
                 4. Date of Expiry of Insurance:
